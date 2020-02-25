@@ -3,6 +3,7 @@ package com.example.noteapp.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.util.Log;
 import com.example.noteapp.models.Note;
 
 import java.sql.Date;
+import android.database.DatabaseErrorHandler;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
@@ -93,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setDateInString(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CREATED_DATE)));
             } while (cursor.moveToNext());
         }
+        db.close();
         return item;
 
     }
@@ -114,8 +117,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 itemsList.add(item);
             } while (cursor.moveToNext());
         }
+        db.close();
         return itemsList;
 
+    }
+
+    public int updateNote(Note note) {
+        int rowsAffected = -1;
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NOTE_TITLE, note.getTitle());
+        cv.put(COLUMN_NOTE_DESC, note.getDetail());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            rowsAffected = db.update(TABLE_NAME_NOTES, cv, COLUMN_NOTE_ID + "=" +
+                    note.getId(), null);
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        }
+        db.close();
+        return rowsAffected;
     }
 
     @Override

@@ -88,8 +88,10 @@ public class MainActivity extends AppCompatActivity implements NoteListAdapter.N
     public void getSelectedNote(Note selectedNote){
         Intent intent = new Intent(MainActivity.this, CreateAndViewNoteActivity.class);
         intent.putExtra("isUpdate", 1);
-        intent.putExtra("NoteTitle", selectedNote.getTitle());
-        intent.putExtra("NoteDesc", selectedNote.getDetail());
+        intent.putExtra("NoteID", selectedNote.getId());
+//        intent.putExtra("NoteTitle", selectedNote.getTitle());
+//        intent.putExtra("NoteDesc", selectedNote.getDetail());
+
         startActivity(intent);
     }
 }
