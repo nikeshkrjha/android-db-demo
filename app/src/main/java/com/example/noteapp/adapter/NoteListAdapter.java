@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteListViewHolder>{
     private ArrayList<Note> mDataset;
+    private NoteListAdapter.NotesListInterface listInterface;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -37,6 +38,11 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         mDataset = myDataset;
     }
 
+    public void setNotesListInterface(NoteListAdapter.NotesListInterface listInterface){
+        this.listInterface = listInterface;
+    }
+
+
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
@@ -49,10 +55,19 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NoteListViewHolder holder,final int position) {
         Note note = mDataset.get(position);
         holder.noteDescTxtView.setText(note.getDetail());
         holder.noteTitleTxtView.setText(note.getTitle());
+
+        //set onclick listener for the row
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Note selectedNote = mDataset.get(position);
+                listInterface.getSelectedNote(selectedNote);
+            }
+        });
 
     }
 
@@ -61,6 +76,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     public int getItemCount() {
         return mDataset.size();
     }
+
+
+    public interface NotesListInterface {
+        public void getSelectedNote(Note selectedNote);
+    }
+
 }
 
 

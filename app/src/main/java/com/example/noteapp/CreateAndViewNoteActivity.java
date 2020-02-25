@@ -29,10 +29,9 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_and_view_note2);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        saveBtn = findViewById(R.id.saveBtn);
-        noteDescEditText = findViewById(R.id.noteDetailsEdtTxt);
-        noteTitleEditText = findViewById(R.id.noteTitleEditText);
-        databaseHelper = new DatabaseHelper(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        initializeViewAndDbHelper();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +43,28 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
                 databaseHelper.createNewNote(note);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        populateValues();
 
     }
 
+    private void initializeViewAndDbHelper() {
+        saveBtn = findViewById(R.id.saveBtn);
+        noteDescEditText = findViewById(R.id.noteDetailsEdtTxt);
+        noteTitleEditText = findViewById(R.id.noteTitleEditText);
+        databaseHelper = new DatabaseHelper(this);
+    }
+
+    private void populateValues() {
+        Intent intent = getIntent();
+        int isUpdate = intent.getIntExtra("isUpdate",0);
+        if(isUpdate == 1){
+            String noteTitle = intent.getStringExtra("NoteTitle");
+            String noteDesc = intent.getStringExtra("NoteDesc");
+            this.noteTitleEditText.setText(noteTitle);
+            this.noteDescEditText.setText(noteDesc);
+        }
+
+    }
 }

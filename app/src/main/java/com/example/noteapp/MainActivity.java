@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.example.noteapp.adapter.NoteListAdapter;
 import com.example.noteapp.database.DatabaseHelper;
+import com.example.noteapp.models.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -17,7 +18,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NoteListAdapter.NotesListInterface{
 
     private RecyclerView notesRecyclerView = null;
     private NoteListAdapter noteListAdapter = null;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, CreateAndViewNoteActivity.class);
+                intent.putExtra("isUpdate", 0);
                 startActivity(intent);
             }
         });
@@ -80,5 +82,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getSelectedNote(Note selectedNote){
+        Intent intent = new Intent(MainActivity.this, CreateAndViewNoteActivity.class);
+        intent.putExtra("isUpdate", 1);
+        intent.putExtra("NoteTitle", selectedNote.getTitle());
+        intent.putExtra("NoteDesc", selectedNote.getDetail());
+        startActivity(intent);
     }
 }
