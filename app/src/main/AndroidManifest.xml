@@ -10,15 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".NewActivity"
-            android:label="@string/title_activity_test"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.noteapp.MainActivity" />
-        </activity>
-        <activity
             android:name=".CreateAndViewNoteActivity"
             android:label="@string/title_activity_create_and_view_note"
             android:parentActivityName=".MainActivity"

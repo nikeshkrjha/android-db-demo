@@ -71,12 +71,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
      * Delet note by ID
      * **/
-    public void deleteNote(Note note) {
-        String deleteQuery = "DELETE FROM " + TABLE_NAME_NOTES +
-                " WHERE " + COLUMN_NOTE_ID + "=" + note.getId() + ";";
+    public int deleteNote(Note note) {
+//        String deleteQuery = "DELETE FROM " + TABLE_NAME_NOTES +
+//                " WHERE " + COLUMN_NOTE_ID + "=" + note.getId() + ";";
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(deleteQuery);
-        db.close();
+//        db.execSQL(deleteQuery);
+//        db.close();
+
+        // Define 'where' part of query.
+        String selection = COLUMN_NOTE_ID + " = ?";
+        // Specify arguments in placeholder order.
+        String[] selectionArgs = {String.valueOf(note.getId())};
+        // Issue SQL statement.
+        int deletedRows = db.delete("Notes", selection, selectionArgs);
+        return deletedRows;
     }
 
 

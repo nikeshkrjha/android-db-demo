@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NoteListAdapter.NotesListInterface{
 
@@ -38,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements NoteListAdapter.N
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, CreateAndViewNoteActivity.class);
                 intent.putExtra("isUpdate", 0);
                 startActivity(intent);
@@ -95,8 +94,14 @@ public class MainActivity extends AppCompatActivity implements NoteListAdapter.N
 
     @Override
     public void deleteNote(Note note) {
-        databaseHelper.deleteNote(note);
-        noteListAdapter = new NoteListAdapter(this,databaseHelper.getAllNotes());
-        notesRecyclerView.setAdapter(noteListAdapter);
+        int rowsAffected = databaseHelper.deleteNote(note);
+        if(rowsAffected != 0){
+            Toast.makeText(this, "Delete Successfull",
+                    Toast.LENGTH_SHORT).show();
+            noteListAdapter = new NoteListAdapter(this,databaseHelper.getAllNotes());
+            noteListAdapter.setNotesListInterface(this);
+            notesRecyclerView.setAdapter(noteListAdapter);
+        }
+
     }
 }

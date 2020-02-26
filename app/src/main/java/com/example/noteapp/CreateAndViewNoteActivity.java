@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.example.noteapp.database.DatabaseHelper;
 import com.example.noteapp.models.Note;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,7 +27,7 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_and_view_note2);
+        setContentView(R.layout.activity_create_and_view_note);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,7 +60,6 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
                     if (newRowID != 0) {
                         Toast.makeText(CreateAndViewNoteActivity.this, "Insert Successfull",
                                 Toast.LENGTH_SHORT).show();
-//                        finish();
                     }
                 }
             }

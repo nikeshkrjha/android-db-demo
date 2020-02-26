@@ -70,7 +70,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ONCLICK", "selectedNote");
                 Note selectedNote = mDataset.get(position);
                 listInterface.getSelectedNote(selectedNote);
             }
@@ -80,7 +79,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ONCLICK", "selectedNote");
                 listInterface.deleteNote(mDataset.get(position));
             }
         });
