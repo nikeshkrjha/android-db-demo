@@ -6,7 +6,6 @@ import android.os.Bundle;
 import com.example.noteapp.database.DatabaseHelper;
 import com.example.noteapp.models.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -51,7 +50,7 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
                     int rowsAffected = databaseHelper.updateNote(selectedNote);
                     if (rowsAffected != -1) {
                         Toast.makeText(CreateAndViewNoteActivity.this, "Update Successfull",
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Note note = new Note();
@@ -61,7 +60,8 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
                     long newRowID = databaseHelper.createNewNote(note);
                     if (newRowID != 0) {
                         Toast.makeText(CreateAndViewNoteActivity.this, "Insert Successfull",
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_SHORT).show();
+//                        finish();
                     }
                 }
             }
@@ -88,10 +88,6 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
         int selectedNoteID = intent.getIntExtra("NoteID", 0);
         if(selectedNoteID != 0){
             selectedNote = databaseHelper.getNote(selectedNoteID);
-
-//        String noteTitle = intent.getStringExtra("NoteTitle");
-//        String noteDesc = intent.getStringExtra("NoteDesc");
-//        selectedNoteID = intent.getIntExtra("NoteID", 0);
             this.noteTitleEditText.setText(selectedNote.getTitle());
             this.noteDescEditText.setText(selectedNote.getDetail());
         }else{

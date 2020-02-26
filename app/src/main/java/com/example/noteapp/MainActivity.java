@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NoteListAdapter.N
         notesRecyclerView = findViewById(R.id.notesRecyclerView);
         databaseHelper = new DatabaseHelper(this);
         noteListAdapter = new NoteListAdapter(this,databaseHelper.getAllNotes());
+        noteListAdapter.setNotesListInterface(this);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         notesRecyclerView.setLayoutManager(layoutManager);
@@ -89,9 +90,13 @@ public class MainActivity extends AppCompatActivity implements NoteListAdapter.N
         Intent intent = new Intent(MainActivity.this, CreateAndViewNoteActivity.class);
         intent.putExtra("isUpdate", 1);
         intent.putExtra("NoteID", selectedNote.getId());
-//        intent.putExtra("NoteTitle", selectedNote.getTitle());
-//        intent.putExtra("NoteDesc", selectedNote.getDetail());
-
         startActivity(intent);
+    }
+
+    @Override
+    public void deleteNote(Note note) {
+        databaseHelper.deleteNote(note);
+        noteListAdapter = new NoteListAdapter(this,databaseHelper.getAllNotes());
+        notesRecyclerView.setAdapter(noteListAdapter);
     }
 }

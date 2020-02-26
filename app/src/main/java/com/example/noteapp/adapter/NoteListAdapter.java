@@ -1,9 +1,12 @@
 package com.example.noteapp.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.noteapp.R;
@@ -25,12 +28,15 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         // each data item is just a string in this case
         public TextView noteTitleTxtView;
         public TextView noteDescTxtView;
+        public Button deleteBtn;
         public NoteListViewHolder(View view) {
             super(view);
             noteTitleTxtView = view.findViewById(R.id.noteTitle);
             noteDescTxtView = view.findViewById(R.id.noteDetails);
+            deleteBtn = view.findViewById(R.id.deleteBtn);
         }
     }
+
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public NoteListAdapter(Context context, ArrayList<Note> myDataset) {
@@ -64,11 +70,21 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("ONCLICK", "selectedNote");
                 Note selectedNote = mDataset.get(position);
                 listInterface.getSelectedNote(selectedNote);
             }
         });
 
+
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ONCLICK", "selectedNote");
+                listInterface.deleteNote(mDataset.get(position));
+            }
+        });
+//
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -79,7 +95,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
 
 
     public interface NotesListInterface {
-        public void getSelectedNote(Note selectedNote);
+         void getSelectedNote(Note selectedNote);
+         void deleteNote(Note note);
     }
 
 }
