@@ -102,6 +102,5 @@ public class MainActivity extends AppCompatActivity implements NoteListAdapter.N
             noteListAdapter.setNotesListInterface(this);
             notesRecyclerView.setAdapter(noteListAdapter);
         }
-
     }
 }

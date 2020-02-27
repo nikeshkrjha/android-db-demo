@@ -82,7 +82,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
                 listInterface.deleteNote(mDataset.get(position));
             }
         });
-//
     }
 
     // Return the size of your dataset (invoked by the layout manager)

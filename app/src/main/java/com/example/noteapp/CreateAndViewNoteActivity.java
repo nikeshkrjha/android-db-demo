@@ -55,13 +55,13 @@ public class CreateAndViewNoteActivity extends AppCompatActivity {
                     Note note = new Note();
                     note.setTitle(noteTitleEditText.getText().toString());
                     note.setDetail(noteDescEditText.getText().toString());
-                    note.setCreatedDate(new Date());
                     long newRowID = databaseHelper.createNewNote(note);
                     if (newRowID != 0) {
                         Toast.makeText(CreateAndViewNoteActivity.this, "Insert Successfull",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
+                finish();
             }
         });
     }

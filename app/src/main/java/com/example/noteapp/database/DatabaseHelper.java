@@ -32,8 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_NOTES_TABLE = "CREATE TABLE " + TABLE_NAME_NOTES + " (" +
             COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NOTE_TITLE + " VARCHAR(100)," +
-            COLUMN_NOTE_DESC + " VARCHAR(250)," +
-            COLUMN_NOTE_CREATED_DATE + " DATETIME" +
+            COLUMN_NOTE_DESC + " VARCHAR(250)" +
             ")";
 
     private static final String SQL_DELETE_NOTES =
@@ -60,7 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, note.getTitle());
         values.put(COLUMN_NOTE_DESC, note.getDetail());
-        values.put(COLUMN_NOTE_CREATED_DATE, note.getCreatedDateInString());
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(TABLE_NAME_NOTES, null, values);
@@ -100,7 +98,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)));
                 item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)));
                 item.setDetail(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_DESC)));
-                item.setDateInString(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CREATED_DATE)));
             } while (cursor.moveToNext());
         }
         db.close();
@@ -121,7 +118,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)));
                 item.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)));
                 item.setDetail(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_DESC)));
-                item.setDateInString(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CREATED_DATE)));
                 itemsList.add(item);
             } while (cursor.moveToNext());
         }
